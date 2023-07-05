@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase-Real-time-polling-application</title>
+
+</head>
+
+<body>
+
+    <h1>firebase real time polling app</h1>
+    <hr>
+    <form>
+        <fieldset>
+
+            <legend>
+                <h2>Signup</h2>
+            </legend>
+            <fieldset>
+
+                <label for="userName">Username:</label> <br>
+                <input type="text" id="userName" size="15" maxlength="25" placeholder="Enter username..">
+
+            </fieldset>
+            <br>
+
+            <fieldset>
+
+                <label for="emailAddrss">Email address</label> <br>
+                <input type="text" id="emailAddrss" size="35" maxlength="50" placeholder="Enter email address..">
+
+            </fieldset>
+            <br>
+            <fieldset>
+
+                <label for="Password">Password:</label> <br>
+                <input type="password" id="Password" size="16" minlength="4" maxlength="8"
+                    placeholder="Enter 8 digit password..">
+            </fieldset>
+    </form>
+    </fieldset>
+
+    <button type="submit" onclick="signUp(event)">REGISTER</button>
+
+    <p>alraedy have a account?<a href="./login.html">Login</a></p>
+
+
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+            apiKey: "AIzaSyAWTnTjLksOBbx_SDt0MYFT3bsYiVRtXME",
+            authDomain: "real-time-polling-application.firebaseapp.com",
+            projectId: "real-time-polling-application",
+            storageBucket: "real-time-polling-application.appspot.com",
+            messagingSenderId: "846385199164",
+            appId: "1:846385199164:web:1ed25761ba260fab176b39",
+            measurementId: "G-6W9L3V8RRV"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    </script>
+
+    <script type="module" src="polling.js"></script>
+
+</body>
+
+</html>
