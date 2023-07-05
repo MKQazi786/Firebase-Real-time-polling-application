@@ -1,10 +1,3 @@
-import { initializeApp } from 'firebase/app';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { getDatabase, ref, set } from 'firebase/database';
-
-
-// TODO: Replace the following with your app's Firebase project configuration
-// See: https://support.google.com/firebase/answer/7015592
 const firebaseConfig = {
   apiKey: "AIzaSyAWTnTjLksOBbx_SDt0MYFT3bsYiVRtXME",
   authDomain: "real-time-polling-application.firebaseapp.com",
@@ -16,66 +9,67 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+const firestore = firebase.firestore();
 
-// Initialize Cloud Firestore and get a reference to the service
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    // User is signed in, see docs for a list of available properties
+    // https://firebase.google.com/docs/reference/js/v8/firebase.User
+    let uid = user.uid;
+    // ...
+  } else {
+    // User is signed out
+    // ...
+  }
+});
+
 const db = firebase.firestore();
 
 window.signUp = (event) => {
 
   event.preventDefault();
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const database = getDatabase(app);
-
+  // e.reset()
 
   let username = document.getElementById("userName").value;
   let email = document.getElementById("emailAddrss").value;
   let password = document.getElementById("Password").value;
 
-
-  firebase.auth().createUserWithEmailAndPassword(username, email, password)
-    .then((res) => {
-      let user = {
-        username: username,
-        email: email,
-        password: password
-      }
-
-      firebase.database().ref(`users/${res.user.uid}`).set(user)
-        .then(() => {
-          alert("new user is registered")
-          window.location = "login.html"
-        })
-
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      // Signed in 
+      alert("new user is registered")
+      let user = userCredential.user;
+      console.log("user: ", user)
+      window.location = "login.html"
     })
-    .catch((err) => {
-      console.log("err=>", err)
-    })
+    .catch((error) => {
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      console.log("firebase signup error: ", error)
+    });
+
 }
 
 window.logIn = (event) => {
   event.preventDefault()
 
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const database = getDatabase(app);
-
   let email = document.getElementById("emailAddrss").value;
   let password = document.getElementById("Password").value;
 
   firebase.auth().signInWithEmailAndPassword(email, password)
-    .then((res) => {
-    
-      firebase.database().ref(`users/$(res.user.uid)`).once('value', (data) => {
-        alert("successfully logged in")
-        console.log(data.val())
-      })
-    }
-
-    )
-    .catch((err) => {
-      console.log('err=>', err)
+    .then((userCredential) => {
+      // Signed in
+      let user = userCredential.user;
+      alert("successfully logged in")
+      console.log("login successfull:", user)
+    })
+    .catch((error) => {
+      let errorCode = error.code;
+      let errorMessage = error.message;
+      console.log("firebase login error: ", errorCode, errorMessage)
     });
 }
