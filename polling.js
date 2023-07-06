@@ -66,6 +66,7 @@ window.logIn = (event) => {
       let user = userCredential.user;
       alert("successfully logged in")
       console.log("login successfull:", user)
+      window.location = "z-app.html"
     })
     .catch((error) => {
       let errorCode = error.code;
