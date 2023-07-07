@@ -12,6 +12,7 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const firestore = firebase.firestore();
+const database = firebase.database();
 
 
 firebase.auth().onAuthStateChanged((user) => {
@@ -72,5 +73,66 @@ window.logIn = (event) => {
       let errorCode = error.code;
       let errorMessage = error.message;
       console.log("firebase login error: ", errorCode, errorMessage)
+      alert("login not succesfull maybe your email or password is incorrect")
     });
 }
+
+
+window.createPoll = (event) => {
+  event.preventDefault()
+
+  const userQuestion = document.getElementById("questionInput").value;
+  const userQuestionText = userQuestion.trim();
+  
+  
+  if (userQuestionText !== '') {
+    let newPoll = {
+      Question: userQuestionText,
+      Option: []
+    };
+
+    db.collection("users").add({
+      newPoll  
+    })
+    .then((docRef) => {
+      console.log("Document written with ID: ", docRef.id);
+    })
+    .catch((error) => {
+      console.error("Error adding document: ", error);
+    });
+    userQuestion = '';
+  }
+  
+}
+
+let polls = [];
+
+window.renderPolls = (event) => {
+  event.preventDefault()
+  
+  const resultDiv = document.getElementById("pollContainer").value;
+  resultDiv.innerhtml = '';
+
+  db.collection("users").get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      const pollData = doc.data();
+      const pollDiv = document.createElement("div");
+      pollDiv.className = "poll";
+    
+
+const pollQuestion = document.createElement("h3");
+pollQuestion.textContent = polls.Question
+pollDiv.appendChild(pollQuestion);
+
+for (const optionText in polls.Option) {
+  const option = polls.Option[optionText]
+  const optionElement = document.createElement("p");
+  optionElement.textContent = `${optionText} : ${option.votes} votes`;
+  pollDiv.appendChild(optionElement)
+}
+
+resultDiv.appendChild(pollDiv)
+
+});
+});
+};
