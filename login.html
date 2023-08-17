@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+    
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,6 +10,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
 </head>
 
 <body>
@@ -36,31 +40,6 @@
     <button type="submit" onclick="logIn(event)">LOGIN</button>
 
     <p>Dont have a account? <a href="./index.html">Sign up</a></p>
-
-
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-
-
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
-
-        const firebaseConfig = {
-            apiKey: "AIzaSyAWTnTjLksOBbx_SDt0MYFT3bsYiVRtXME",
-            authDomain: "real-time-polling-application.firebaseapp.com",
-            projectId: "real-time-polling-application",
-            storageBucket: "real-time-polling-application.appspot.com",
-            messagingSenderId: "846385199164",
-            appId: "1:846385199164:web:1ed25761ba260fab176b39",
-            measurementId: "G-6W9L3V8RRV"
-        };
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-    </script>
 
     <script type="module" src="polling.js"></script>
 </body>

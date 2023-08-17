@@ -9,23 +9,22 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const firestore = firebase.firestore();
 const database = firebase.database();
 
-
-firebase.auth().onAuthStateChanged((user) => {
-  if (user) {
-    // User is signed in, see docs for a list of available properties
-    // https://firebase.google.com/docs/reference/js/v8/firebase.User
-    let uid = user.uid;
-    // ...
-  } else {
-    // User is signed out
-    // ...
-  }
-});
+// firebase.auth().onAuthStateChanged((user) => {
+//   if (user) {
+//     // User is signed in, see docs for a list of available properties
+//     // https://firebase.google.com/docs/reference/js/v8/firebase.User
+//     let uid = user.uid;
+//     // ...
+//   } else {
+//     // User is signed out
+//     // ...
+//   }
+// });
 
 const db = firebase.firestore();
 
@@ -45,7 +44,7 @@ window.signUp = (event) => {
       alert("new user is registered")
       let user = userCredential.user;
       console.log("user: ", user)
-      window.location = "login.html"
+      window.location = "z-app.html"
     })
     .catch((error) => {
       let errorCode = error.code;
@@ -121,18 +120,16 @@ window.renderPolls = (event) => {
     
 
 const pollQuestion = document.createElement("h3");
-pollQuestion.textContent = polls.Question
+pollQuestion.textContent = pollData.newPoll.Question;
 pollDiv.appendChild(pollQuestion);
 
-for (const optionText in polls.Option) {
-  const option = polls.Option[optionText]
+for (const optionText in pollData.newPoll.Option) {
+  const option = pollData.newPoll.Option[optionText];
   const optionElement = document.createElement("p");
   optionElement.textContent = `${optionText} : ${option.votes} votes`;
-  pollDiv.appendChild(optionElement)
-}
-
-resultDiv.appendChild(pollDiv)
-
+  pollDiv.appendChild(optionElement);
+  
+  resultDiv.appendChild(pollDiv);}
 });
 });
 };
