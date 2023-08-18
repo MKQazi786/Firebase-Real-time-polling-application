@@ -76,60 +76,28 @@ window.logIn = (event) => {
     });
 }
 
+window.signOut = (event) => {
+
+  event.preventDefault()
+
+  firebase.auth().signOut().then(() => {
+    console.log("Sign out successful");
+    window.location.href = "";
+  }).catch((error) => {
+
+    console.log("Sign out is not succesful:", error);
+
+  });
+}
+
 
 window.createPoll = (event) => {
   event.preventDefault()
 
   const userQuestion = document.getElementById("questionInput").value;
   const userQuestionText = userQuestion.trim();
-  
-  
-  if (userQuestionText !== '') {
-    let newPoll = {
-      Question: userQuestionText,
-      Option: []
-    };
 
-    db.collection("users").add({
-      newPoll  
-    })
-    .then((docRef) => {
-      console.log("Document written with ID: ", docRef.id);
-    })
-    .catch((error) => {
-      console.error("Error adding document: ", error);
-    });
-    userQuestion = '';
-  }
-  
-}
 
-let polls = [];
 
-window.renderPolls = (event) => {
-  event.preventDefault()
-  
-  const resultDiv = document.getElementById("pollContainer").value;
-  resultDiv.innerhtml = '';
 
-  db.collection("users").get().then((querySnapshot) => {
-    querySnapshot.forEach((doc) => {
-      const pollData = doc.data();
-      const pollDiv = document.createElement("div");
-      pollDiv.className = "poll";
-    
-
-const pollQuestion = document.createElement("h3");
-pollQuestion.textContent = pollData.newPoll.Question;
-pollDiv.appendChild(pollQuestion);
-
-for (const optionText in pollData.newPoll.Option) {
-  const option = pollData.newPoll.Option[optionText];
-  const optionElement = document.createElement("p");
-  optionElement.textContent = `${optionText} : ${option.votes} votes`;
-  pollDiv.appendChild(optionElement);
-  
-  resultDiv.appendChild(pollDiv);}
-});
-});
 };

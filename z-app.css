@@ -2,13 +2,14 @@ body{
     background-color: rgb(73, 30, 30);
 }
 .header {
-    text-align: center;
     background-color: seagreen;
     padding: 1rem;
     margin:0rem;
     margin-bottom:1rem;
     color: white;
-    border-radius: 8px; 
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-around; 
 }
 
 Form {
@@ -59,4 +60,12 @@ footer{
     color: white;  
     font-size: larger;
     border-radius: 8px; 
+}
+
+.header > .logOut {
+    border: 2px solid black;
+    width:20%;
+    background-color: rgb(105, 105, 236);
+    border-radius:5px ;
+    text-align: center;
 }
